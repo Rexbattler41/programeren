@@ -10,7 +10,7 @@ function pointTeam1(event){
     if ((team1Points > 25|| team2Points > 25) && Math.abs(team1Points - team2Points) >= 2) {
         team1Points = 0;
         team2Points = 0;
-        alert('gewonnen!')
+        alert('team 1 heeft gewonnen!')
         counterTeam2.innerText = team2Points;
     }
     counterTeam1.innerText = team1Points;
@@ -21,7 +21,7 @@ function pointTeam2(event){
     if ((team1Points > 25|| team2Points > 25) && Math.abs(team2Points - team1Points) >= 2) {
         team1Points = 0;
         team2Points = 0;
-        alert('gewonnen!')
+        alert('team 2 heeft gewonnen!')
         counterTeam1.innerText = team1Points;
     }
     counterTeam2.innerText = team2Points;
