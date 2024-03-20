@@ -1,30 +1,33 @@
-console.log('hallo wereld');
+undoButton.style.display = 'none'
 
 let team1Points = 0;
 let team2Points = 0;
 
-
-
-function pointTeam1(event){
-    team1Points++;
-    if ((team1Points > 25|| team2Points > 25) && Math.abs(team1Points - team2Points) >= 2) {
-        team1Points = 0;
-        team2Points = 0;
-        alert('team ' + nameTeam1.innerText + ' heeft gewonnen!')
+function handleButton(event){
+    if (this == counterTeam1){
+        team1Points++
+        lastScored = 1;
+        if ((team1Points > 25|| team2Points > 25) && Math.abs(team1Points - team2Points) >= 2) {
+            team1Points = 0;
+            team2Points = 0;
+            alert('team ' + nameTeam1.innerText + ' heeft gewonnen!')
+            counterTeam2.innerText = team2Points;
+            undoButton.style.display = 'none'
+        }
+        counterTeam1.innerText = team1Points;
+    } else {
+        team2Points++
+        lastScored = 2;
+        if ((team1Points > 25|| team2Points > 25) && Math.abs(team2Points - team1Points) >= 2) {
+            team1Points = 0;
+            team2Points = 0;
+            alert('team ' + nameTeam2 + ' heeft gewonnen!')
+            counterTeam1.innerText = team1Points;
+            undoButton.style.display = 'none'
+        }
         counterTeam2.innerText = team2Points;
     }
-    counterTeam1.innerText = team1Points;
-}
-
-function pointTeam2(event){
-    team2Points++;
-    if ((team1Points > 25|| team2Points > 25) && Math.abs(team2Points - team1Points) >= 2) {
-        team1Points = 0;
-        team2Points = 0;
-        alert('team ' + nameTeam2 + ' heeft gewonnen!')
-        counterTeam1.innerText = team1Points;
-    }
-    counterTeam2.innerText = team2Points;
+    undoButton.style.display = 'block'
 }
 
 function handleStartButton(event){
@@ -52,10 +55,20 @@ function handleStartButton(event){
         console.log("team 2 begint")
         input_teams.style.display = 'none'
     }
-    counterTeam1.addEventListener('click', pointTeam1);
-    counterTeam2.addEventListener('click', pointTeam2);
+    counterTeam1.addEventListener('click', handleButton);
+    counterTeam2.addEventListener('click', handleButton);
 };
 
 startButton.addEventListener('click', handleStartButton);
+undoButton.addEventListener('click', resetButton);
 
-//undoButton.addEventListener('click', undoPoints)
+function resetButton(event){
+    undoButton.style.display = 'none'
+    if (lastScored == 1){
+        team1Points--;
+        counterTeam1.innerText = team1Points;
+    } else {
+        team2Points--;
+        counterTeam2.innerText = team2Points;
+    }
+}
